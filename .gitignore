@@ -1,0 +1,11 @@
+.lsp-session-v1
+org-persist
+org-roam.db
+projectile-bookmarks.eld
+projectile.cache
+recentf
+server
+transient
+backup
+auto-save-list
+elpa

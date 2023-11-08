@@ -9,3 +9,5 @@ transient
 backup
 auto-save-list
 elpa
+.org-generic-id-locations
+.org-id-locations

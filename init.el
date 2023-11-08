@@ -26,7 +26,11 @@
   delete-old-versions t  ; Automatically delete excess backups
   kept-new-versions 20   ; how many of the newest versions to keep
   kept-old-versions 5    ; and how many of the old
-)
+  )
+
+(setq auto-save-file-name-transforms
+      `((".*" ,
+	 temporary-file-directory t)))
 
 (setq evil-want-C-u-scroll t)
 (setq evil-want-keybinding nil)
@@ -102,13 +106,15 @@
 
 (defun run-project-script ()
   (interactive)
-  (async-shell-command (prompt-project-script "Select a script to run: ")))
+  (let* ((script (ivy-read "Select a script to run: " (get-project-scripts)))
+	(path (concat (concat (get-current-project-dir) "scripts/") script)))
+    (async-shell-command path (concat "*" (concat script "*")))))
 
 ;; Leader key setup
 (require 'evil-leader)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
-  "O" 'delete-other-windows
+  ";" 'delete-other-windows
   "t" 'org-todo
   "dv" 'describe-variable
   "df" 'describe-function
@@ -174,6 +180,7 @@
 (setq org-agenda-files nil)
 (add-to-list 'org-agenda-files (concat org-directory "/notes.org"))
 (setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-agenda-span 'fortnight)
 (org-agenda-list)
 (org-roam-db-autosync-mode)
 
@@ -206,12 +213,6 @@
 (setq lsp-signature-auto-activate t) ;; you could manually request them via `lsp-signature-activate`
 (setq lsp-signature-render-documentation t)
 (setq lsp-headerline-breadcrumb-enable t)
-
-;; Lsp hooks
-(add-hook 'typescript-mode-hook 'lsp)
-(add-hook 'typescript-mode-hook 'flycheck-mode)
-(add-hook 'csharp-mode-hook 'lsp)
-(add-hook 'csharp-mode-hook 'flycheck-mode)
 
 ;; Enable line numbers
 (setq display-line-numbers-type 'relative)

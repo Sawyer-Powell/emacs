@@ -1,3 +1,3 @@
-# My emacs configuration ;)
+### My emacs configuration ;)
 
 ![doraemon](logo.png)

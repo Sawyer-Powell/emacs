@@ -160,6 +160,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(electric-pair-mode)
 
 (setq default-frame-alist
       '((background-color . "gray12")

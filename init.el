@@ -91,18 +91,18 @@
    (directory-files
     (concat (get-current-project-dir) "scripts/"))))
 
-(defun prompt-project-script ()
+(defun prompt-project-script (prompt)
   (concat
    (concat (get-current-project-dir) "scripts/")
-   (ivy-read "Select a script to run: " (get-project-scripts))))
+   (ivy-read prompt (get-project-scripts))))
 
 (defun open-project-script ()
   (interactive)
-  (find-file (prompt-project-script)))
+  (find-file (prompt-project-script "Select a script to open: ")))
 
 (defun run-project-script ()
   (interactive)
-  (async-shell-command (prompt-project-script)))
+  (async-shell-command (prompt-project-script "Select a script to run: ")))
 
 ;; Leader key setup
 (require 'evil-leader)
@@ -162,7 +162,7 @@
 (scroll-bar-mode -1)
 
 (setq default-frame-alist
-      '((background-color . "gray10")
+      '((background-color . "gray12")
         (foreground-color . "gray85")
 	(font . "JetBrains Mono-11")
 	(fullscreen . maximized)

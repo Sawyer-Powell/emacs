@@ -122,10 +122,18 @@
 		 (path (concat (concat (get-current-project-dir) "scripts/") script)))
     (async-shell-command path (concat "*" (concat script "*")))))
 
+;; Fix annoying thing where cursor can fall out of the right indentation level
+(defun fix-cursor-indent ()
+  (interactive)
+  (indent-according-to-mode)
+  (evil-insert 1))
+
 ;; Leader key setup
 (require 'evil-leader)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
+  "<SPC>" 'fix-cursor-indent
+  "re" 'eval-region
   ";" 'delete-other-windows
   "t" 'org-todo
   "dv" 'describe-variable
@@ -135,7 +143,7 @@
 
   "e" 'find-file
   "a" 'org-agenda-list
-
+  
   ;; Org roam functions
   "of" 'org-roam-node-find
   "oc" 'org-agenda-capture
@@ -151,7 +159,7 @@
   "c" 'calendar
   "g" 'magit
   "b" 'switch-to-buffer
-
+  
   ;; Special functions
   "ss" 'eshell
   "sg" 'chatgpt-shell
